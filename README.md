@@ -1,53 +1,79 @@
 The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
 
-(__TODO__: your project name)
-
-# Shoppy Shoperson 
+# VirtuAlbum
 
 ## Overview
 
-(__TODO__: a brief one or two paragraph, high-level description of your project)
-
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
-
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
-
+Every hobbiest that has dabbled in the realm card collecting knows the frustrations of keeping tabs on their cards. With VirtuAlbum, players, collectors, and sellers can ditch those cramped excel files in favor of a user friendly interface. Users can log on to view their binders, deck boxes, and tins, modify them as trades, pulls, and purchases happen, and even display them. Within each storage, cards can be accessed with uploaded pictures, name, card game/collection, price, and more. This allows for easy valuation of parts of a collection, in addition to convenient ways to filter and sort from any set of cards the user owns. Users can also keep track of accessories such as dice, coins, and playmats.
 
 ## Data Model
 
-(__TODO__: a description of your application's data and their relationships to each other) 
+The application will store Users, Storages, Display, Cards, Bulks, and Accessories
 
-The application will store Users, Lists and Items
-
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
-
-(__TODO__: sample documents)
+* each storage has a name, note, and type (binder, box, tin)
+* each card has attributes name, game, set, rarity, condition, price, language, notes, and image
+* each bulk has attributes name, game, size, language, notes, and image
+* each accessory has attributes name, type (coin, die, mat, other), brand, notes, and image
+* users can have multiple storages (via references)
+* users can have one display (via reference)
+* each storage can have multiple cards, bulks, and/or accessories (by embedding)
+* a display can have multiple storages, accessories, and/or cards (via references)
 
 An Example User:
 
 ```javascript
 {
-  username: "shannonshopper",
-  hash: // a password hash,
-  lists: // an array of references to List documents
+  username: "YugiMuto",
+  hash:, // a password hash
+  storages:, // an array of references to storage documents
+  display: // reference to the user's display
 }
 ```
 
-An Example List with Embedded Items:
+An Example Storage with Embedded Items:
 
 ```javascript
 {
   user: // a reference to a User object
-  name: "Breakfast foods",
+  type: 'tin',
+  name: "Pokemon Tin 3",
   items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
+    new Bulk("Fusion Strike Common Bulk", 'PTCG', 300, "English", "pulled from a box 10/22/2022"),
+    new Card("Golisopod GX", 'PTCG', "Burning Shadows", "Secret Rare", "NM", 6.72, "English", "traded at local 9/15/2022"),
+    new Card("Radiant Gardevoir", 'PTCG', "Lost Origin", "Radiant Rare", "LP", 0.90, "English", "purchased online 9/17/2022"),
+    new Accessory("Holo Blastoise Coin", "coin", "TPC", "received from promotion")
   ],
   createdAt: // timestamp
 }
 ```
 
+An Example Display with References to Storages: 
+
+```javascript
+{
+  user: // a reference to a User object
+  items: [
+    // references to storaged user decides to add here
+  ]
+}
+```
+
+Constructors for Card (same structure for Bulk and Accessory):
+
+```javascript
+function Card(name, game, set, rarity, condition, price, language, note, img = null) {
+  this.name = name;
+  this.game = game;
+  this.set = set;
+  this.rarity = rarity;
+  this.condition = condition;
+  this.price = price;
+  this.language = language;
+  this.note = note;
+  this.img = img;
+  this.id = IDCount; IDCount++; // IDCount is user var which increases each time a card, bulk, or accessory is created
+}
+```
 
 ## [Link to Commented First Draft Schema](db.mjs) 
 
@@ -55,19 +81,21 @@ An Example List with Embedded Items:
 
 ## Wireframes
 
-(__TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc.)
+/manage-storages/editview-storage/deck1 - page for viewing or editing an existing storage
 
-/list/create - page for creating a new shopping list
+![storage](documentation/editview-storage.png)
 
-![list create](documentation/list-create.png)
+/manage-storages - page for showing all storages and creating new storages
 
-/list - page for showing all shopping lists
+![storage](documentation/manage-storages.png)
 
-![list](documentation/list.png)
+/card-list - page for showing specific shopping list
 
-/list/slug - page for showing specific shopping list
+![cardlist](documentation/card-list.png)
 
-![list](documentation/list-slug.png)
+/display - page showing the user's display
+
+![display](documentation/display.png)
 
 ## Site map
 
