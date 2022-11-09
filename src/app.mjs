@@ -29,7 +29,7 @@ const Display = mongoose.model('Display');
 
 // MIDDLEWARE
 // require authenticated user
-app.use(auth.authRequired(['/edit-display']));
+app.use(auth.authRequired(['/edit-display'], ['/manage-storages'], ['/editview-storage']));
 
 // make {{user}} variable available for all paths
 app.use((req, res, next) => {

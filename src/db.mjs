@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import mongooseSlugPlugin from 'mongoose-slug-plugin';
 
+const { Schema } = mongoose;
+
 const UserSchema = new Schema({
     _id: Schema.Types.ObjectId,
     username: {type: String, required: true}, 
@@ -8,19 +10,19 @@ const UserSchema = new Schema({
     password: {type: String, unique: true, required: true}
 });
 
-const Storage = new Schema({
+const StorageSchema = new Schema({
     // user: ,
     name: String,
     type: String,
     items: [Object]
 });
 
-const Display = new Schema({
-    cards: [Card],
+const DisplaySchema = new Schema({
+    /*cards: [Card],
     //storages: // references to storages
-    accessories: [Accessory]
+    accessories: [Accessory]*/
 });
-
+/*
 function Card(name, game, set, rarity, condition, price, language, note, img = null) {
     this.name = name;
     this.game = game;
@@ -47,11 +49,9 @@ function Accessory(name, type, brand, note) {
     this.brand = brand;
     this.note = note;
     this.id = IDCount; IDCount++; // IDCount is user var which increases each time a card, bulk, or accessory is created
-}
+}*/
 
-
-
-ArticleSchema.plugin(mongooseSlugPlugin, {tmpl: '<%=title%>'});
+DisplaySchema.plugin(mongooseSlugPlugin, {tmpl: '<%=name%>'});
 
 mongoose.model('User', UserSchema);
 mongoose.model('Storage', StorageSchema);
