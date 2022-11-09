@@ -78,4 +78,4 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
  dbconf = 'mongodb://localhost/YOUR_DATABASE_NAME_HERE';
 }
 
-mongoose.connect('dbconf');
+mongoose.connect(dbconf);
