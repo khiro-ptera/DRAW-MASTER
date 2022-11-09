@@ -1,0 +1,17 @@
+<h2>STORAGE LIST WORK IN PROGRESS</h2>
+<form method="POST" action="">
+	<div>
+		<label for="name">Storage name:</label>
+		<input type="text" id="name" name="name" value="">
+	</div>
+	<div>
+		<label for="type">Type:</label>
+		<input type="text" id="type" name="type" value="">
+	</div>
+	<input type="submit" value="Add">
+</form>
+<ol>
+{{#each storages as |a|}}
+<li>{{name}} - {{type}}</li>
+{{/each}}
+</ol>

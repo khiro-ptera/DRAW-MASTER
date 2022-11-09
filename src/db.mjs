@@ -12,12 +12,14 @@ const UserSchema = new Schema({
 
 const StorageSchema = new Schema({
     // user: ,
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     name: String,
     type: String,
     items: [Object]
 });
 
 const DisplaySchema = new Schema({
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
     /*cards: [Card],
     //storages: // references to storages
     accessories: [Accessory]*/
@@ -77,5 +79,5 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
  // if we're not in PRODUCTION mode, then use
  dbconf = 'mongodb://localhost/YOUR_DATABASE_NAME_HERE';
 }
-
+// console.log(typeof(dbconf));
 mongoose.connect(dbconf);
