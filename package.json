@@ -20,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "flowbite": "^1.5.4",
     "hbs": "^4.2.0",
     "mongoose": "^6.7.0",
     "mongoose-slug-plugin": "^2.1.0",
@@ -28,6 +29,8 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "tailwindcss": "^3.2.2"
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "tailwindcss": "^3.2.4"
   }
 }

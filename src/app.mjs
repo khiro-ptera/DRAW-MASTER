@@ -14,18 +14,23 @@ var sessionOptions = {
 	saveUninitialized: true
 };
 
+const fPath = path.dirname(url.fileURLToPath(import.meta.url));
+
 app.use(session(sessionOptions));
 
 app.set('view engine', 'hbs');
+app.set('views', path.join(fPath, 'views'));
 
 app.use(express.urlencoded({extended: false}));
 
-const fPath = path.dirname(url.fileURLToPath(import.meta.url));
 app.use(express.static(path.join(fPath, 'public')));
 
 
 const Storage = mongoose.model('Storage');
 const Display = mongoose.model('Display');
+
+const loginMessages = {"PASSWORDS DO NOT MATCH": 'Incorrect password', "USER NOT FOUND": 'User doesn\'t exist'};
+const registrationMessages = {"USERNAME ALREADY EXISTS": "Username already exists", "USERNAME PASSWORD TOO SHORT": "Username/password is too short"};
 
 // MIDDLEWARE
 // require authenticated user
@@ -45,6 +50,10 @@ app.use((req, res, next) => {
 
 // ROUTE HANDLERS 
 app.get('/', (req, res) => {
+	res.render('index');
+});
+
+app.post('/', (req, res) => {
 	res.render('index');
 });
 
@@ -83,7 +92,7 @@ app.post('/manage-storages', (req, res) => {
 
 app.get('/register', (req, res) => {
 	res.render('register');
-  });
+});
 
 app.post('/register', (req, res) => {
   // setup callbacks for register success and error
