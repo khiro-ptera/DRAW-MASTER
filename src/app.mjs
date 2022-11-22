@@ -67,8 +67,7 @@ app.get('/manage-storages', (req, res) => {
   if (user == null) {
     res.redirect('/login');
   } else {
-    // TODO: make it so that only your own storages show
-	  Storage.find({}).sort('-createdAt').exec((err, storages) => {
+	  Storage.find({user:user._id}).sort('-createdAt').exec((err, storages) => {
       res.render('manage-storages', {user: req.session.user, home: true, storages: storages});
     });
     // res.render('manage-storages');
