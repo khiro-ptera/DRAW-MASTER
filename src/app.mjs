@@ -185,6 +185,20 @@ app.post('/login', (req, res) => {
   auth.login(req.body.username, req.body.password, error, success);
 });
 
+app.get('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        res.status(400).send('Unable to log out');
+      } else {
+        res.redirect('/');
+      }
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
 
 
 app.listen(process.env.PORT || 3000);

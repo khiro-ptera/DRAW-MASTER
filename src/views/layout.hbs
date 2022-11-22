@@ -13,7 +13,9 @@
 	<div id="outer" class="dark">
 		<header>
 			<nav>
-				<span class="home-link"><a href="/">Home</a> {{#if user}}| <a href="/display">Your Display</a> | <a href="/manage-storages">Manage Storages</a>{{/if}}</span>
+				<span class="home-link"><a href="/">Home</a> {{#if user}}| <a href="/display">Your Display</a>
+				 | <a href="/manage-storages">Manage Storages</a>
+				  | <a href="/logout">Log Out</a>{{/if}}</span>
 				<span class="login-status">
 					{{#if user}}
 					Hello {{user.username}}
@@ -33,6 +35,7 @@
 		<br>
 
 		<footer> 
+			<div>This button is broken lol. Still working on tailwindcss so hopefully this will be functional soon.</div>
 			<!--DARK MODE BUTTON-->
 			<div class="start">
 				<form method="POST" action="/">
