@@ -28,6 +28,7 @@ app.use(express.static(path.join(fPath, 'public')));
 
 const Storage = mongoose.model('Storage');
 const Display = mongoose.model('Display');
+const Card = mongoose.model('Card');
 
 const loginMessages = {"PASSWORDS DO NOT MATCH": 'Incorrect password', "USER NOT FOUND": 'User doesn\'t exist'};
 const registrationMessages = {"USERNAME ALREADY EXISTS": "Username already exists", "USERNAME PASSWORD TOO SHORT": "Username/password is too short"};
@@ -63,12 +64,13 @@ app.get('/display', (req, res) => {
 
 app.get('/manage-storages', (req, res) => {
   const user = req.session.user;
-  if (user === null) {
+  if (user == null) {
     res.redirect('/login');
   } else {
-	Storage.find({}).sort('-createdAt').exec((err, storages) => {
-		res.render('manage-storages', {user: req.session.user, home: true, storages: storages});
-	});
+    // TODO: make it so that only your own storages show
+	  Storage.find({}).sort('-createdAt').exec((err, storages) => {
+      res.render('manage-storages', {user: req.session.user, home: true, storages: storages});
+    });
     // res.render('manage-storages');
   }
 });
@@ -76,7 +78,7 @@ app.get('/manage-storages', (req, res) => {
 app.post('/manage-storages', (req, res) => {
   const user = req.session.user;
   // console.log(user);
-  if (user === null) {
+  if (user == null) {
     res.redirect('/login');
   } else {
     const st = new Storage({user:user._id, name:req.body.name, type:req.body.type, items:[]});
@@ -88,6 +90,51 @@ app.post('/manage-storages', (req, res) => {
       }
     });
   }
+});
+
+app.get('/manage-storages/:slug', (req, res) => {const user = req.session.user;
+  if (user == null) {
+    res.redirect('/login');
+  } else {
+    Storage.findOne({slug:req.params.slug}).populate('user').exec(function(err, storage) {
+      console.log(storage.items);
+      res.render('storage-detail', {user: req.session.user, storage: storage, cards: storage.items});
+    });
+  }
+});
+
+app.post('/manage-storages/:slug', (req, res) => {
+  const user = req.session.user;
+  if (user == null) {
+    res.redirect('/login');
+  } else {
+    const c = {name:req.body.name}
+    Storage.findOne({slug:req.params.slug}).populate('user').exec(function(err, storage) {
+      console.log(storage.items);
+      storage.items.push(c);
+      storage.save();
+      res.render('storage-detail', {user: req.session.user, storage: storage, cards: storage.items});
+    });
+  }
+  /*const c = new Card({user:user._id, name:req.body.name});
+  c.save((err) => {
+    if (err) {
+      res.render('error', {message: 'Error saving card'}); 
+    } else {
+      const st = Storage.findOne({slug:req.params.slug});
+      st.items.push(c);
+      st.populate('user').exec(function(err, storage) {
+        res.render('storage-detail', {user: req.session.user, storage: storage, cards: storage.items});
+      });
+    }
+  });*/
+  /*let c = {name:req.body.name}
+  const st = Storage.findOne({slug:req.params.slug});
+  console.log(st.items);
+  st.items.push(c);
+  st.populate('user').exec(function(err, storage) {
+    res.render('storage-detail', {user: req.session.user, storage: storage, cards: storage.items});
+  });*/
 });
 
 app.get('/register', (req, res) => {

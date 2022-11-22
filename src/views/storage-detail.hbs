@@ -1,0 +1,20 @@
+<h2>{{storage.name}}</h2>
+<div>Storage uploader: {{article.user.username}}</div>
+<br>
+<div>
+    <div>Decklist:</div>
+    <ol>
+        {{#each cards as |a|}}
+            <li>{{name}}</li>
+        {{/each}}
+    </ol>
+</div>
+<br>
+<form method="POST" action="">
+    <div>New Card</div>
+	<div>
+		<label for="name">Card name:</label>
+		<input type="text" id="name" name="name" value="">
+	</div>
+	<input type="submit" value="Add">
+</form>

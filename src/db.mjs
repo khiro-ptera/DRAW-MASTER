@@ -15,7 +15,11 @@ const StorageSchema = new Schema({
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     name: String,
     type: String,
-    items: [Object]
+    items: [
+        {
+            name: {type: String, required: true}
+        }
+    ]
 });
 
 const DisplaySchema = new Schema({
@@ -24,6 +28,12 @@ const DisplaySchema = new Schema({
     //storages: // references to storages
     accessories: [Accessory]*/
 });
+
+const CardSchema = new Schema({
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    name: String
+});
+
 /*
 function Card(name, game, set, rarity, condition, price, language, note, img = null) {
     this.name = name;
@@ -54,10 +64,12 @@ function Accessory(name, type, brand, note) {
 }*/
 
 DisplaySchema.plugin(mongooseSlugPlugin, {tmpl: '<%=name%>'});
+StorageSchema.plugin(mongooseSlugPlugin, {tmpl: '<%=name%>'});
 
 mongoose.model('User', UserSchema);
 mongoose.model('Storage', StorageSchema);
 mongoose.model('Display', DisplaySchema);
+mongoose.model('Card', CardSchema);
 
 // is the environment variable, NODE_ENV, set to PRODUCTION? 
 import fs from 'fs';
