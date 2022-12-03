@@ -1,4 +1,4 @@
-# VirtuAlbum
+# Draw Master (formetly VirtuAlbum)
 
 ## Overview
 
