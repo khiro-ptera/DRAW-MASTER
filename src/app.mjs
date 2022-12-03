@@ -59,7 +59,37 @@ app.post('/', (req, res) => {
 });
 
 app.get('/display', (req, res) => {
-	res.render('display');
+	const user = req.session.user;
+  if (user == null) {
+    res.redirect('/login');
+  } else {
+	  Storage.find({user:user._id}).sort('-createdAt').exec((err, storages) => {
+      res.render('display', {user: req.session.user, home: true, storages: storages});
+    });
+  }
+});
+
+app.get('/display/:slug', (req, res) => {const user = req.session.user;
+  if (user == null) {
+    res.redirect('/login');
+  } else {
+    Storage.findOne({slug:req.params.slug}).populate('user').exec(function(err, storage) {
+      console.log(storage.items);
+      res.render('storage-test', {user: req.session.user, storage: storage, cards: storage.items});
+    });
+  }
+});
+
+app.post('/display/:slug', (req, res) => {
+  const user = req.session.user;
+  if (user == null) {
+    res.redirect('/login');
+  } else {
+    Storage.findOne({slug:req.params.slug}).populate('user').exec(function(err, storage) {
+      console.log(storage.items);
+      res.render('storage-test', {user: req.session.user, storage: storage, cards: storage.items});
+    });
+  }
 });
 
 app.get('/manage-storages', (req, res) => {
@@ -115,25 +145,6 @@ app.post('/manage-storages/:slug', (req, res) => {
       res.render('storage-detail', {user: req.session.user, storage: storage, cards: storage.items});
     });
   }
-  /*const c = new Card({user:user._id, name:req.body.name});
-  c.save((err) => {
-    if (err) {
-      res.render('error', {message: 'Error saving card'}); 
-    } else {
-      const st = Storage.findOne({slug:req.params.slug});
-      st.items.push(c);
-      st.populate('user').exec(function(err, storage) {
-        res.render('storage-detail', {user: req.session.user, storage: storage, cards: storage.items});
-      });
-    }
-  });*/
-  /*let c = {name:req.body.name}
-  const st = Storage.findOne({slug:req.params.slug});
-  console.log(st.items);
-  st.items.push(c);
-  st.populate('user').exec(function(err, storage) {
-    res.render('storage-detail', {user: req.session.user, storage: storage, cards: storage.items});
-  });*/
 });
 
 app.get('/register', (req, res) => {

@@ -13,20 +13,22 @@
 	<div id="outer" class="dark">
 		<header>
 			<nav>
-				<span class="home-link"><a href="/">Home</a> {{#if user}}| <a href="/display">Your Display</a>
+				<span class="home-link"><a href="/">Home</a> {{#if user}}| <a href="/display">Test Hands</a>
 				 | <a href="/manage-storages">Manage Storages</a>
 				  | <a href="/logout">Log Out</a>{{/if}}</span>
 				<span class="login-status">
 					{{#if user}}
-					Hello {{user.username}}
+					Hello {{user.username}}! 
 					{{else}}
 					| <a href="/register">Register</a> | <a href="/login">Login</a>
 					{{/if}}
 				</span>
+				  <br>
 			</nav>
 		</header>
+		<br>
 
-		<h1>PLACEHOLDER FOR IMAGE AND STUFF</h1>
+		<img src="/img/drawmaster.png" alt="drawmaster logo">
 		<div class="content">
 			{{{ body }}}
 		</div>
@@ -34,15 +36,15 @@
 		
 		<br>
 
-		<footer> 
+		<!--<footer> 
 			<div>This button is broken lol. Still working on tailwindcss so hopefully this will be functional soon.</div>
-			<!--DARK MODE BUTTON-->
+			
 			<div class="start">
 				<form method="POST" action="/">
 					<input class="theme" id="theme-toggle" type="submit" value="Dark/Light">  
 				</form>
 			</div>
-		</footer>
+		</footer>-->
 	</div>
 </body>
 </html>
