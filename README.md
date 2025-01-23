@@ -4,7 +4,7 @@
 
 Every hobbiest that has dabbled in the realm card collecting knows the frustrations of keeping tabs on their cards. With VirtuAlbum, players, collectors, and sellers can ditch those cramped excel files in favor of a user friendly interface. Users can log on to view their binders, deck boxes, and tins, modify them as trades, pulls, and purchases happen, and even display them. Within each storage, cards can be accessed with uploaded pictures, name, card game/collection, price, and more. This allows for easy valuation of parts of a collection, in addition to convenient ways to filter and sort from any set of cards the user owns. Users can also keep track of accessories such as dice, coins, and playmats.
 
-* IMPORTANT UPDATE FOR MILESTONE 3: I have decided to reduce the scope of my project to a hand tester, as I have been having a lot of trouble implementing just the research topics (still struggling after a couple days of pulling my hair out). Instead of a full functionality album uploader, my project will now allow the user to create multiple decks of custom cards. A user can then select a deck, have it be shuffled, and be dealt a hand which size is variable. Essentially, storages will only contain cards now! Possibly also changing from react to vue.
+* IMPORTANT UPDATE FOR MILESTONE 3: I have decided to reduce the scope of my project to a hand tester. Instead of a full functionality album uploader, my project will now allow the user to create multiple decks of custom cards. A user can then select a deck, have it be shuffled, and be dealt a hand which size is variable. Essentially, storages will only contain cards now! Possibly also changing from react to vue.
 
 ## Data Model
 
